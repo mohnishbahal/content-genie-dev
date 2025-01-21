@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Product Image Analysis</title>
+</head>
+<body>
+    <form id="uploadForm">
+        <input type="file" id="imageInput" accept="image/*" required>
+        <textarea id="customPrompt" placeholder="Custom prompt (optional)"></textarea>
+        <button type="submit">Analyze Product</button>
+    </form>
+
+    <div id="result"></div>
+
+    <script>
+        document.getElementById('uploadForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const imageFile = document.getElementById('imageInput').files[0];
+            const customPrompt = document.getElementById('customPrompt').value;
+            const resultDiv = document.getElementById('result');
+            
+            try {
+                resultDiv.textContent = 'Analyzing...';
+                const analysis = await uploadProductImage(imageFile, customPrompt);
+                resultDiv.textContent = analysis;
+            } catch (error) {
+                resultDiv.textContent = 'Error analyzing image: ' + error.message;
+            }
+        });
+    </script>
+</body>
+</html> 
